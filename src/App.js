@@ -1,24 +1,35 @@
 import React from 'react';
 import {BrowserRouter as Router,
-        Switch, Route} from 'react-router-dom';
+        Switch, Route, Redirect} from 'react-router-dom';
 
-import SignIn from './pages/SignIn';
-import SignUp from './pages/SignUp';
+import PageTemplate from './components/pageTemplate';
+import Workouts from './pages/workouts';
+import Exercises from './pages/exercises';
+
 
 
 function App() {
   return (
     <Router>
-      <Switch>
-        <Route exact path="/">
-          <SignIn/>
-        </Route>
-        <Route path="/sign-up">
-          <SignUp/> 
-        </Route>
-      </Switch>
+      <>
+        <Switch>
+          <Redirect exact from='/' to='/workouts' />
+          <Route path="/workouts">
+            <PageTemplate title="Workouts">
+              <Workouts/>
+            </PageTemplate>
+          </Route>
+          <Route path="/exercises">
+            <PageTemplate title="Exercises">
+              <Exercises/>
+            </PageTemplate>
+          </Route>
+        </Switch>
+      </>
     </Router>
   );
 }
 
 export default App;
+
+
