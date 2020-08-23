@@ -7,8 +7,7 @@ import Snackbar from '@material-ui/core/Snackbar';
 
 import CalendarHead from './components/calendarHead';
 import CalendarBody from './components/calendarBody';
-import useStyles from '../../../../components/stylesPageTemplate';
-import AddWorkout from './components/addWorkout';
+import useStyles from './styles';
 
 
 function Calendar(props) {
@@ -62,8 +61,8 @@ function Calendar(props) {
    
         
     return (
-        <Grid container spacing={3}>
-            <Grid item xs={12} md={8}>
+        <Grid container>
+            <Grid item xs={12} md={6}>
                 <CalendarHead
                     allMonths={allMonths}
                     currentMonth={currentMonth}
@@ -85,7 +84,8 @@ function Calendar(props) {
                     // activeDays={activeDays} 
                 />
             </Grid>
-            <Grid item xs={false} md={4} style={{padding: 0}} className={classes.image}>
+            <Grid item xs={false} md={1}/>
+            <Grid item xs={false} md={5}  className={classes.image}>
                 {/* <Paper className="paper"> */}
                 {/* { editing
                         ?  <>

@@ -1,37 +1,42 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+import clsx from 'clsx';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListSubheader from '@material-ui/core/ListSubheader';
 import DateRangeIcon from '@material-ui/icons/DateRange';
-import FitnessCenterIcon from '@material-ui/icons/FitnessCenter';
-
-import clsx from 'clsx';
+import FormatListNumberedIcon from '@material-ui/icons/FormatListNumbered';
+import FormatListNumberedRtlIcon from '@material-ui/icons/FormatListNumberedRtl';
 import Drawer from '@material-ui/core/Drawer';
 import IconButton from '@material-ui/core/IconButton';
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import useStyles from '../stylesPageTemplate';
 
-function Sidebar(props) {
-    const {openSidebar, handleSidebarClose} = props;
-    const pageTemplate = useStyles();
+import useStyles from './styles';
+import {
+    WORKOUTS_PAGE,
+    EXERCISES_PAGE,
+    WORKOUTS_TRACKER_PAGE,
+  } from '../../../../constants';
+
+function MenuSidebar({isOpenSidebar, onSidebarClose}) {
+    const sidebar = useStyles();
  
     return (
         <Drawer
             variant="permanent"
             classes={{
-                paper: clsx(pageTemplate.drawerPaper, 
-                !openSidebar && pageTemplate.drawerPaperClose),
+                paper: clsx(sidebar.drawerPaper, 
+                !isOpenSidebar && sidebar.drawerPaperClose),
             }}
-            open={openSidebar}
+            open={isOpenSidebar}
             >
-            <div className={pageTemplate.toolbarIcon}>
+            <div className={sidebar.toolbarIcon}>
                 <IconButton
-                    onClick={handleSidebarClose}
+                    onClick={onSidebarClose}
                 >
                 <ChevronLeftIcon />
                 </IconButton>
@@ -40,24 +45,24 @@ function Sidebar(props) {
             <List>
                 <ListSubheader
                     inset
-                    className={pageTemplate.subheader}
+                    className={sidebar.subheader}
                 >
                     Menu
                 </ListSubheader>
-                <Link to='/workouts' className={pageTemplate.link}>
+                <Link to={WORKOUTS_TRACKER_PAGE} className={sidebar.link}>
                     <ListItem button>
                         <ListItemIcon>
                             <DateRangeIcon/>
                         </ListItemIcon>
-                        <ListItemText primary="Workouts" />
+                        <ListItemText primary="Workouts tracker" />
                     </ListItem>
                 </Link>
-                <Link to='/exercises' className={pageTemplate.link}>
+                <Link to={EXERCISES_PAGE} className={sidebar.link}>
                     <ListItem button>
                         <ListItemIcon>
-                            <FitnessCenterIcon/>
+                            <FormatListNumberedIcon/>
                         </ListItemIcon>
-                        <ListItemText primary="Exercises" />
+                        <ListItemText primary="List exercises" />
                     </ListItem>
                 </Link>
             </List>
@@ -66,4 +71,4 @@ function Sidebar(props) {
     );
 }
 
-export default Sidebar;
+export default MenuSidebar;

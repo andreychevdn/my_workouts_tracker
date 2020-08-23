@@ -8,29 +8,27 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import CssBaseline from '@material-ui/core/CssBaseline';
 
-import useStyles from '../stylesPageTemplate';
+import useStyles from './styles';
 
-
-const Header = (props) => {
-    const{openSidebar, handleSidebarOpen, title} = props;
-    const pageTemplate = useStyles();
+const Header = ({isOpenSidebar, onSidebarOpen, title,}) => {
+    const header = useStyles();
 
     return (
-      <div className={pageTemplate.root}>
+      <div className={header.root}>
         <CssBaseline/>
         <AppBar position="absolute" 
           className={
-            clsx (pageTemplate.appBar, openSidebar && pageTemplate.appBarShift)
+            clsx (header.appBar, isOpenSidebar && header.appBarShift)
           }
         >
-            <Toolbar className={pageTemplate.toolbar}>
+            <Toolbar className={header.toolbar}>
               <IconButton
                 edge="start"
                 color="inherit"
                 aria-label="open drawer"
-                onClick={handleSidebarOpen}
-                className={clsx(pageTemplate.menuButton, 
-                          openSidebar && pageTemplate.menuButtonHidden)}
+                onClick={onSidebarOpen}
+                className={clsx(header.menuButton, 
+                                isOpenSidebar && header.menuButtonHidden)}
               >
                 <MenuIcon />
               </IconButton>
@@ -39,12 +37,13 @@ const Header = (props) => {
                 variant="h6" 
                 color="inherit"
                 noWrap
-                className={pageTemplate.title}
+                className={header.title}
               >
                 {title}
               </Typography>
             </Toolbar>
         </AppBar>
+        
       </div>
     );
 };

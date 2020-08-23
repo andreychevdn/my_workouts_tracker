@@ -16,10 +16,12 @@
 .calendar th {
     background: #efefef;
     text-align: center;
+    padding: 16px 10px;
 }
 
 .calendar td {
     text-align: center;
+    padding: 16px 10px;
 }
 
 .calendar .today {
@@ -68,7 +70,7 @@
 .calendar .selected-day {
     color: white;
     font-weight: bold;
-    background: #8ec5fc;
+    background: #8fb6f1;
 }
 
 .paper {
