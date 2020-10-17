@@ -1,36 +1,50 @@
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from "@material-ui/core/styles";
 
-const useStyles = makeStyles(() => ({
-    title: {
-        textAlign: 'center',
-        textTransform: 'uppercase',
-        fontSize: '17px'
+const useStyles = makeStyles((theme) => ({
+  title: {
+    textAlign: "center",
+    textTransform: "uppercase",
+    fontSize: "17px",
+    color: "#9e9e9e",
+  },
+  formControl: {
+    marginTop: "10px",
+    width: "100%",
+  },
+  wrapButtons: {
+    marginTop: "25px",
+    display: "flex",
+    justifyContent: "space-between",
+  },
+  paper: {
+    marginTop: "25px",
+    [theme.breakpoints.up("xxs")]: {
+      padding: "10px 20px 15px",
     },
-    formControl: {
-        marginTop: '10px',
-        width: '100%'
+    [theme.breakpoints.up("xs")]: {
+      padding: "10px 40px 15px",
     },
-    wrapButtons: {
-        marginTop: '25px',
-        display: 'flex',
-        justifyContent: 'space-between',
+    [theme.breakpoints.up("sm")]: {
+      padding: "10px 50px 15px",
     },
-    paper: {
-        marginTop: '25px',
-        padding: '10px 25px 15px',
-        border: '1px solid grey'
+    [theme.breakpoints.up("md")]: {
+      padding: "10px 65px 15px",
     },
-    wrapNumbersFields: {
-        marginTop: '15px',
-        display: 'flex',
-        justifyContent: 'space-between',
+    [theme.breakpoints.up("lg")]: {
+      padding: "10px 85px 15px",
     },
-    numbersField: {
-        width: '20%'
-    },
-    slider: {
-        marginTop: '15px'
-    },
+  },
+  wrapNumbersFields: {
+    marginTop: "15px",
+    display: "flex",
+    justifyContent: "space-between",
+  },
+  numbersField: {
+    width: "20%",
+  },
+  slider: {
+    marginTop: "15px",
+  },
 }));
 
 export default useStyles;

@@ -18,25 +18,30 @@ import {
 } from "../../reducer/constants";
 import { URL_DATABASE } from "../../../../constants";
 import { ExercisesContext } from "../../context/exercisesContext";
+import { AlertContext } from "../../../../alertContext/alertContext";
 
-const ExercisesForm = ({title,}) => {
+const ExercisesForm = ({ title }) => {
   const exercisesForm = useStyles();
+  const { handleShowAlert, handleHideAlert } = useContext(AlertContext);
   const {
-    state, dispatch, draftExercise,
-    setDraftExercise, initialDraftExercise} = useContext(ExercisesContext);
-  let {creationForm, editionForm,} = state;
-  let { name, type, description, exampleLink, } = draftExercise;
+    state,
+    dispatch,
+    draftExercise,
+    setDraftExercise,
+    initialDraftExercise,
+  } = useContext(ExercisesContext);
+  let { creationForm, editionForm } = state;
+  let { name, type, description, exampleLink } = draftExercise;
   const isValid =
     name === "" || type === "" || description === "" || exampleLink === "";
 
   const handleCreationFormClose = () => {
     setDraftExercise(initialDraftExercise);
-    dispatch({type: CANCEL_NEW_EXERCISE});
+    dispatch({ type: CANCEL_NEW_EXERCISE });
   };
 
   const handleEditionFormClose = () => {
-    setDraftExercise(initialDraftExercise);
-    dispatch({type: CANCEL_CHANGED_EXERCISE});
+    dispatch({ type: CANCEL_CHANGED_EXERCISE });
   };
 
   const handleChangeInput = (event) => {
@@ -45,34 +50,51 @@ const ExercisesForm = ({title,}) => {
   };
 
   const handleNewExerciseSave = async () => {
-    const response = await axios.post(
-      `${URL_DATABASE}/exercises.json`,
-      draftExercise
-    );
-    const payload = {
-      ...draftExercise,
-      id: response.data.name,
-    };
-    dispatch({ type: SAVE_NEW_EXERCISE, payload });
-    setDraftExercise(initialDraftExercise);
-    dispatch({ type: CANCEL_NEW_EXERCISE });
+    try {
+      const response = await axios.post(
+        `${URL_DATABASE}/exercises.json`,
+        draftExercise
+      );
+      if (response.status >= 400) {
+        throw new Error("Something went wrong!");
+      }
+      const payload = {
+        ...draftExercise,
+        id: response.data.name,
+      };
+      dispatch({ type: SAVE_NEW_EXERCISE, payload });
+      setDraftExercise(initialDraftExercise);
+      dispatch({ type: CANCEL_NEW_EXERCISE });
+      handleShowAlert("Exercise successfully created!", "success");
+      setTimeout(() => handleHideAlert(), 3000);
+    } catch (e) {
+      handleShowAlert(`httpError: ${e.message}`, "error");
+      setTimeout(() => handleHideAlert(), 3000);
+    }
   };
 
-const handleChangedExerciseSave = async () => {
-  const response = await axios.put(
-    `${URL_DATABASE}/exercises/${draftExercise.id}.json`,
-    draftExercise
-  );
-  dispatch({type: SAVE_CHANGED_EXERCISE, payload: draftExercise});
-  setDraftExercise(initialDraftExercise);
-  dispatch({type: CANCEL_CHANGED_EXERCISE});
-};
+  const handleChangedExerciseSave = async () => {
+    try {
+      const response = await axios.put(
+        `${URL_DATABASE}/exercises/${draftExercise.id}.json`,
+        draftExercise
+      );
+      if (response.status >= 400) {
+        throw new Error("Something went wrong!");
+      }
+      dispatch({ type: SAVE_CHANGED_EXERCISE, payload: draftExercise });
+      setDraftExercise(initialDraftExercise);
+      dispatch({ type: CANCEL_CHANGED_EXERCISE });
+      handleShowAlert("Exercise successfully changed!", "success");
+      setTimeout(() => handleHideAlert(), 3000);
+    } catch (e) {
+      handleShowAlert(`httpError: ${e.message}`, "error");
+      setTimeout(() => handleHideAlert(), 3000);
+    }
+  };
 
   return (
-    <Drawer
-      open={creationForm || editionForm}
-      anchor="right"
-    >
+    <Drawer open={creationForm || editionForm} anchor="right">
       <div className={exercisesForm.wrapFields}>
         <Typography
           component="h1"
@@ -93,7 +115,11 @@ const handleChangedExerciseSave = async () => {
           onChange={handleChangeInput}
           value={name}
         />
-        <FormControl variant="outlined" className={exercisesForm.formControl}>
+        <FormControl
+          size="small"
+          variant="outlined"
+          className={exercisesForm.formControl}
+        >
           <InputLabel htmlFor="outlined-age-native-simple">Type</InputLabel>
           <Select
             native
@@ -103,10 +129,10 @@ const handleChangedExerciseSave = async () => {
             value={type}
           >
             <option aria-label="None" value="" />
-            <option value='warm up'>WARM UP</option>
-            <option value='workout'>WORKOUT</option>
-            <option value='stretching'>STRETCHING</option>
-            <option value='cardio'>CARDIO</option>
+            <option value="warm up">WARM UP</option>
+            <option value="workout">WORKOUT</option>
+            <option value="stretching">STRETCHING</option>
+            <option value="cardio">CARDIO</option>
           </Select>
         </FormControl>
         <TextField
@@ -133,7 +159,9 @@ const handleChangedExerciseSave = async () => {
         <div className={exercisesForm.wrapButtons}>
           <Button
             variant="contained"
-            onClick={creationForm ? handleCreationFormClose : handleEditionFormClose}
+            onClick={
+              creationForm ? handleCreationFormClose : handleEditionFormClose
+            }
           >
             Cancel
           </Button>
@@ -141,7 +169,9 @@ const handleChangedExerciseSave = async () => {
             variant="contained"
             color="primary"
             disabled={isValid}
-            onClick={creationForm ? handleNewExerciseSave :  handleChangedExerciseSave}
+            onClick={
+              creationForm ? handleNewExerciseSave : handleChangedExerciseSave
+            }
           >
             Save
           </Button>

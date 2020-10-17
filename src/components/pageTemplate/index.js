@@ -1,12 +1,10 @@
-import React from 'react';
+import React from "react";
 
-import AppBar from '@material-ui/core/AppBar';
+import MenuSidebar from "./components/menuSidebar";
+import Header from "./components/header";
+import useStyles from "./styles";
 
-import MenuSidebar from './components/menuSidebar';
-import Header from './components/header';
-import useStyles from './styles';
-
-const PageTemplate = ({title, children}) => {
+const PageTemplate = ({ title, children }) => {
   const pageTemplate = useStyles();
   const [isOpenSidebar, setIsOpenSidebar] = React.useState(false);
 
@@ -18,18 +16,18 @@ const PageTemplate = ({title, children}) => {
   };
 
   return (
-      <div className={pageTemplate.root}>
-        <Header
-          isOpenSidebar={isOpenSidebar}
-          onSidebarOpen={handleSidebarOpen}
-          title={title}
-        />
-        <MenuSidebar
-          isOpenSidebar={isOpenSidebar}
-          onSidebarClose={handleSidebarClose}
-        />
-        {React.cloneElement(children, {isOpenSidebar: isOpenSidebar})}
-      </div>
+    <div className={pageTemplate.root}>
+      <Header
+        isOpenSidebar={isOpenSidebar}
+        onSidebarOpen={handleSidebarOpen}
+        title={title}
+      />
+      <MenuSidebar
+        isOpenSidebar={isOpenSidebar}
+        onSidebarClose={handleSidebarClose}
+      />
+      {React.cloneElement(children, { isOpenSidebar: isOpenSidebar })}
+    </div>
   );
 };
 

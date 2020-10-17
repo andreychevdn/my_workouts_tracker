@@ -1,8 +1,10 @@
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles(() => ({
-  root: {
-    display: "flex",
+  wrap: {
+    position: "fixed",
+    left: "48%",
+    top: "12%",
   },
 }));
 

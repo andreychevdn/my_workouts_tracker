@@ -1,46 +1,61 @@
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from "@material-ui/core/styles";
 
-const useStyles = makeStyles(() => ({
-    wrapFields: {
-        width: '500px',
-        display: 'flex',
-        flexDirection: 'column',
-        padding: '10px 20px 10px',
+const useStyles = makeStyles((theme) => ({
+  drawer: {
+    position: "relative",
+  },
+  wrapFields: {
+    [theme.breakpoints.down("xl")]: {
+      width: "50vw",
     },
-    title: {
-        textAlign: 'center',
-        textTransform: 'uppercase',
+    [theme.breakpoints.down("md")]: {
+      width: "65vw",
     },
-    textField: {
-        marginTop: '5px',
+    [theme.breakpoints.down("sm")]: {
+      width: "75vw",
     },
-    wrapButtons: {
-        marginTop: '40px',
-        display: 'flex',
-        justifyContent: 'space-between',
+    [theme.breakpoints.down("xs")]: {
+      width: "90vw",
     },
-    container: {
-        display: 'flex',
-        flexWrap: 'wrap',
-    },
-    datePickers: {
-        marginTop: '10px',
-        width: '100%',
-        padding: '15px',
-        boxSizing: 'border-box',
-        border: '1px solid rgb(148, 150, 153, 0.5)',
-        borderRadius: '3px',
-    },
-    iconButton: {
-        marginTop: '10px',
-        boxSizing: 'border-box',
-        border: '1px solid rgb(148, 150, 153, 0.5)',
-        borderRadius: '3px',
-    },
-    icon: {
-        fontSize: '30px',
-        color: 'blue',
-    },
+    display: "flex",
+    flexDirection: "column",
+    padding: "10px 20px 10px",
+  },
+  title: {
+    textAlign: "center",
+    textTransform: "uppercase",
+    color: "#9e9e9e",
+  },
+  textField: {
+    marginTop: "10px",
+    width: "70%",
+  },
+  btnCancel: {
+    position: "absolute",
+    left: "20px",
+    bottom: "20px",
+  },
+  btnSave: {
+    position: "absolute",
+    right: "20px",
+    bottom: "20px",
+  },
+  container: {
+    display: "flex",
+    flexWrap: "wrap",
+  },
+  btnAddExercise: {
+    marginTop: "5px",
+    width: "25%",
+  },
+  table: {
+    marginTop: "25px",
+    maxHeight: "325px",
+  },
+  tableHead: {
+    fontSize: "15px",
+    color: "rgba(0, 0, 0, 1)",
+  },
 }));
 
 export default useStyles;

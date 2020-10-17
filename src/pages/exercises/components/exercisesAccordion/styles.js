@@ -1,20 +1,33 @@
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from "@material-ui/core/styles";
 
-const useStyles = makeStyles(() => ({
-    wrapItems: {
-        width: '100%',
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
+const useStyles = makeStyles((theme) => ({
+  wrapItems: {
+    width: "100%",
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  span: {
+    fontWeight: "bold",
+    color: "black",
+  },
+  name: {
+    [theme.breakpoints.down("xl")]: {
+      fontSize: "21px",
     },
-    span: {
-        fontWeight: 'bold',
-        color: 'blue',
+    [theme.breakpoints.down("xs")]: {
+      fontSize: "17px",
     },
-    iconButton: {
-        fontSize: '20px',
-        color: 'blue',
+  },
+  icon: {
+    [theme.breakpoints.down("xl")]: {
+      fontSize: "21px",
     },
-  }));
+    [theme.breakpoints.down("xs")]: {
+      fontSize: "17px",
+    },
+    color: "black",
+  },
+}));
 
-  export default useStyles;
+export default useStyles;
