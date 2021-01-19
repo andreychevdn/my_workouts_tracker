@@ -55,7 +55,7 @@ function WorkoutsTracker({ isOpenSidebar }) {
     initialValuesWorkoutsFormSmall
   );
 
-  const fetchWorkouts = async () => {
+  const fetchWorkouts = async () => {// TODO: think about optimization
     try {
       const response = await axios.get(`${URL_DATABASE}/workouts.json`);
       if (response.status >= 400) {
@@ -85,7 +85,7 @@ function WorkoutsTracker({ isOpenSidebar }) {
     dispatch({ type: OPEN_CREATION_FORM });
   };
 
-  return (
+  return (// TODO: think about necessity of using Context
     <WorkoutsContext.Provider
       value={{
         state,
